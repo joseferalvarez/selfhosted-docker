@@ -1,0 +1,35 @@
+version: "2"
+
+networks:
+  plex:
+    external: false
+
+services:
+  plex:
+    image: linuxserver/plex:arm64v8-latest
+    container_name: plex
+    environment:
+      - PGID=1000
+      - PLEX_CLAIM=${PLEX_CLAIM}
+      - PUID=1000
+      - TZ=${TIMEZONE}
+      - VERSION=docker
+    expose:
+      - "32400"
+      - "33400"
+    ports:
+      - 32400:32400
+      - 33400:33400
+    restart: unless-stopped
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    volumes:
+      - ${DATA}/config:/config
+      - ${STORAGE}/media01:/media01
+      - ${STORAGE}/media02:/media02
+      - ${STORAGE}/media03:/media03
+      - ${STORAGE}/media04:/media04
+      - ${STORAGE}/media05:/media05
+    networks:
+      - plex
