@@ -1,4 +1,9 @@
 version: "2.1"
+
+networks:
+  podgrab:
+    external: false
+
 services:
   podgrab:
     image: akhilrex/podgrab
@@ -12,3 +17,5 @@ services:
     ports:
       - ${PORT}:8080
     restart: unless-stopped
+    networks:
+      - podgrab
