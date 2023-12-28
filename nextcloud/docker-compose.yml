@@ -1,0 +1,40 @@
+version: "2.1"
+
+networks:
+  nextcloud:
+    external: false
+
+services:
+  nextcloud:
+    image: nextcloud
+    container_name: nextcloud
+    environment:
+      - POSTGRES_USER=${USER}
+      - POSTGRES_PASSWORD=${PASS}
+      - POSTGRES_DB=${DB}
+      - POSTGRES_HOST=db
+    volumes:
+      - ${DATA}/data:/var/www/html
+    ports:
+      - 3080:80
+    restart: unless-stopped
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    networks:
+      - nextcloud
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    container_name: nextcloud-postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${USER}
+      - POSTGRES_PASSWORD=${PASS}
+      - POSTGRES_DB=${DB}
+    networks:
+      - nextcloud
+    volumes:
+      - ${DATA}/db:/var/lib/postgresql/data
