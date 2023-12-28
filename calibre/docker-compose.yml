@@ -1,0 +1,26 @@
+name: calibre
+
+networks:
+  calibre-web:
+    external: false
+
+services:
+  calibre-web:
+    image: linuxserver/calibre-web:arm64v8-latest
+    container_name: calibre
+    environment:
+      - DOCKER_MODS=linuxserver/mods:universal-calibre
+      - PGID=1000
+      - PUID=1000
+      - TZ=Europe/Madrid
+    ports:
+      - 8083:8083
+    restart: unless-stopped
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    volumes:
+      - ${DATA}/config:/config
+      - ${DATA}/data:/books
+    networks:
+      - calibre-web
