@@ -28,9 +28,5 @@ services:
       - ${DATA}/config:/config
       - ${STORAGE}/media01:/media01
       - ${STORAGE}/media02:/media02
-      - ${STORAGE}/media03:/media03
-      - ${STORAGE}/media04:/media04
-      - ${STORAGE}/media05:/media05
-      - ${DATA}/media06:/media06
     networks:
       - plex
