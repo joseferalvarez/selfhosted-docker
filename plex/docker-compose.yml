@@ -31,5 +31,6 @@ services:
       - ${STORAGE}/media03:/media03
       - ${STORAGE}/media04:/media04
       - ${STORAGE}/media05:/media05
+      - ${DATA}/media06:/media06
     networks:
       - plex
